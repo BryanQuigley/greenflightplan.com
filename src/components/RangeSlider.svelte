@@ -1,7 +1,6 @@
 <script>
 	import LayoverCheckbox from "/src/components/LayoverCheckbox.svelte";
 
-	import throttle from "lodash/throttle";
 	import { range } from "/src/lib/stores";
 	import { scalePow } from 'd3-scale';
   import { onMount } from "svelte";
@@ -29,6 +28,16 @@
 		dragOptions.position.x = scale.invert($range) * (track.clientWidth - handle.clientWidth) + handle.clientWidth/2;
 	}
 
+	function throttle(fn, limit) {
+	let inThrottle;
+		return function (...args) {
+			if (!inThrottle) {
+				fn.apply(this, args);
+				inThrottle = true;
+				setTimeout(() => inThrottle = false, limit);
+			}
+		};
+	}
 	// Move handle
 	const dragOptions = {
 		axis: 'x',

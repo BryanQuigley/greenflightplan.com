@@ -5,7 +5,6 @@
 
 	import { range, visibleSpokes, includeLayovers, selectedAirport } from "/src/lib/stores.js";
 	import { tooltip } from 'svooltip';
-	import debounce from 'lodash/debounce';
 
 	import * as d3 from "d3";
 	import { mesh, feature } from "topojson-client";
@@ -20,28 +19,10 @@
 	const states = mesh(map, map.objects.states, (a, b) => a !== b);
 	const nation = feature(map, map.objects.nation);
 
-
-	// const selectAirportDebounced = debounce(iataCode => {
-	// 	if(airportLocked && iataCode === undefined) return;
-	// 	$selectedAirport = iataCode;
-	// }, 150);
-
-	// const filterSpokesDebounced = function (iataCode) {
-	// 	// filter is already active? 
-	// 	if($selectedAirport && iataCode) {
-	// 		// Immediately allow to select next airport
-	// 		selectAirportDebounced.cancel();
-	// 		return $selectedAirport = iataCode;
-	// 	}
-	// 	selectAirportDebounced(iataCode);
-	// }
-
 	let airportLocked = false;
 	
 	function lockAirport(iataCode) {
-		// deselect
 		if(iataCode === $selectedAirport) iataCode = undefined;
-		// select
 		airportLocked = true;
 		$selectedAirport = iataCode;
 	}
@@ -50,7 +31,6 @@
 		airportLocked = false;
 		$selectedAirport = undefined;
 	}
-	
 	
 	// color spokes depending on class
 	function spokeColor({properties}, includeLayovers) {
