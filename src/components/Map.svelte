@@ -105,38 +105,37 @@
 	</svg>
 </div>
 
-<style lang="scss">
-	div {
-		position: relative;
-	}
+<style>
+    div {
+        position: relative;
+    }
 
-	svg {
-		width: 100%;
-		height: 100%;
-	}
+    svg {
+        width: 100%;
+        height: 100%;
+    }
 
-	@keyframes fade-in {
-		from { opacity: 0; }
-		to { opacity: 1; }
-	}
+    @keyframes fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
 
-	#spokes {
-		pointer-events: none;
-	}
+    #spokes {
+        pointer-events: none;
+    }
 
-	#airports circle {
-		cursor: pointer;
-		
-		&:hover {
-			fill: rgba(0,0,0,.7);
-		}
+    /* Clean, native CSS compliance */
+    #airports circle {
+        cursor: pointer;
+    }
+    
+    #airports circle:hover {
+        fill: rgba(0,0,0,.7);
+    }
 
-		&.selected {
-			fill: rgba(0,0,0,.7);
-			transition: r .25s cubic-bezier(0.65, -0.08, 0.24, 2);
-			r: 4;
-			// stroke-width: 5;
-		}
-	}
-
+    #airports circle.selected {
+        fill: rgba(0,0,0,.7);
+        transition: r .25s cubic-bezier(0.65, -0.08, 0.24, 2);
+        r: 4;
+    }
 </style>

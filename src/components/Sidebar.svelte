@@ -35,7 +35,7 @@
 </div>
 
 
-<style lang="scss">
+<style>
 	#container {
 		width: 150px;
 		display: flex;

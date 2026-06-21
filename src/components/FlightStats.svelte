@@ -27,27 +27,28 @@
 	</span>
 </div>
 
-<style lang="scss">
-	div {
-		display: flex;
-		flex-direction: column;
-		gap: .35rem;
-	}
+<style>
+    div {
+        display: flex;
+        flex-direction: column;
+        gap: .35rem;
+    }
 
-	span {
-		color: var(--neutral-700);
-		font-size: 12px;
-		font-weight: 400;
-		line-height: 14px;
-		display: flex;
-		gap: .5em;
-		align-items: center;
-		white-space: nowrap;
+    span {
+        color: var(--neutral-700);
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 14px;
+        display: flex;
+        gap: .5em;
+        align-items: center;
+        white-space: nowrap;
+    }
 
-		&#label {
-			font-size: 14px;
-			font-weight: 600;
-			line-height: 14px;
-		}
-	}
+    /* Flat, native alternative to your old nested span &#label block */
+    span#label {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 14px;
+    }
 </style>

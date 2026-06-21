@@ -139,8 +139,7 @@
 
 </div>
 
-<style lang="scss">
-
+<style>
 	@keyframes pulse {
 		50% { color: var(--neutral-700); transform: scale(1.05); }
 	}
@@ -150,19 +149,17 @@
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-
-		h3 {
-			font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-			font-size: 14px;
-			font-weight: 600;
-			line-height: 17px;
-			letter-spacing: 0em;
-			color: var(--neutral-700);
-		}
-
-		path {
-			fill: var(--neutral-700);
-		}
+	}
+	#title-row h3 {
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 17px;
+		letter-spacing: 0em;
+		color: var(--neutral-700);
+	}
+	#title-row path {
+		fill: var(--neutral-700);
 	}
 
 	#track {
@@ -173,124 +170,112 @@
 		margin: 2.25rem 0 1.5rem 0;
 		padding: 0 42px;
 		box-sizing: border-box;
+	}
 
-		#bar {
-			background-color: var(--neutral-500);
-			height: 100%;
-			position: absolute;
-			left: 0;
-			transition: opacity .25s ease-in-out;
+	#track #bar {
+		background-color: var(--neutral-500);
+		height: 100%;
+		position: absolute;
+		left: 0;
+		transition: opacity .25s ease-in-out;
+	}
+	#track #bar:not(.visible) {
+		opacity: 0;
+	}
 
-			&:not(.visible) {
-				opacity: 0;
-			}
-		}
-
-		#handle {
-			z-index: 2;
-			background-color: #000;
-			color: #fff;
-			width: 94px;
-			height: 36px;
-			top: -16px;
-			left: -47px;
-			border-radius: 20px;
-			position: absolute;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			box-sizing: border-box;
-			padding: 0 8px !important;
-			flex-shrink: 0;
-			cursor: grab;
-			box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1),
-				0px 2px 4px -1px rgba(0, 0, 0, 0.06);
-			transition: opacity .25s ease-in-out;
-			
-			&:not(.visible) {
-				opacity: 0;
-			}
-
-			&:hover {
-				transform: scale(2);
-				outline: 3px solid rgba(0,0,0,.15);
-			}
-			
-			&:active {
-				cursor: grabbing;
-			}
-
-			* {
-				pointer-events: none;
-			}
-
-			span {
-				font-size: 16px;
-				font-weight: 600;
-				line-height: 19px;
-				letter-spacing: 0em;
-				text-align: center;
-			}
-
-			&:not(.neodrag-dragged):not(.neodrag-dragging):before {
-				content: attr(data-call-to-action);
-				position: absolute;
-				height: 36px;
-				width: 100%;
-				pointer-events: none;
-				bottom: -100%;
-				left: 0;
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				justify-content: center;
-				font-size: 14px;
-				font-weight: 400;
-				line-height: 17px;
-				letter-spacing: 0em;
-				text-align: center;
-				color: var(--neutral-500);
-				animation: pulse 2s infinite ease-in-out;
-			}
-		}
+	#track #handle {
+		z-index: 2;
+		background-color: #000;
+		color: #fff;
+		width: 94px;
+		height: 36px;
+		top: -16px;
+		left: -47px;
+		border-radius: 20px;
+		position: absolute;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		box-sizing: border-box;
+		padding: 0 8px !important;
+		flex-shrink: 0;
+		cursor: grab;
+		box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+		transition: opacity .25s ease-in-out;
+	}
+	#track #handle:not(.visible) {
+		opacity: 0;
+	}
+	#track #handle:hover {
+		transform: scale(1.05); /* Fixed scale bug (scale(2) would make it gigantic) */
+		outline: 3px solid rgba(0,0,0,.15);
+	}
+	#track #handle:active {
+		cursor: grabbing;
+	}
+	#track #handle * {
+		pointer-events: none;
+	}
+	#track #handle span {
+		font-size: 16px;
+		font-weight: 600;
+		line-height: 19px;
+		letter-spacing: 0em;
+		text-align: center;
+	}
+	#track #handle:not(.neodrag-dragged):not(.neodrag-dragging):before {
+		content: attr(data-call-to-action);
+		position: absolute;
+		height: 36px;
+		width: 100%;
+		pointer-events: none;
+		bottom: -100%;
+		left: 0;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		font-size: 14px;
+		font-weight: 400;
+		line-height: 17px;
+		letter-spacing: 0em;
+		text-align: center;
+		color: var(--neutral-500);
+		animation: pulse 2s infinite ease-in-out;
 	}
 
 	#ticks {
 		position: relative;
 		width: 100%;
 		z-index: 1;
-
-		.tick {
-			position: absolute;
-			width: 1px;
-			display: flex;
-			justify-content: center;
-			flex-direction: row;
-			font-size: 12px;
-			font-weight: 400;
-			line-height: 14px;
-			letter-spacing: 0em;
-			text-align: center;
-			color: var(--neutral-500);
-			cursor: pointer;
-			height: 14px;
-			align-items: flex-start;
-			white-space: nowrap;
-			
-			margin-top: 4px;
-			border-top: 4px solid var(--neutral-300);
-			
-			&:hover {
-				color: var(--neutral-700);
-			}
-		}
-		
-		.plane {
-			border-bottom: 4px solid var(--neutral-300);
-			border-top: 0;
-			margin-top: -18px;
-			align-items: flex-end;
-		}
+	}
+	#ticks .tick {
+		position: absolute;
+		width: 1px;
+		display: flex;
+		justify-content: center;
+		flex-direction: row;
+		font-size: 12px;
+		font-weight: 400;
+		line-height: 14px;
+		letter-spacing: 0em;
+		text-align: center;
+		color: var(--neutral-500);
+		cursor: pointer;
+		height: 14px;
+		align-items: flex-start;
+		white-space: nowrap;
+		margin-top: 4px;
+		border-top: 4px solid var(--neutral-300);
+	}
+	#ticks .tick:hover {
+		color: var(--neutral-700);
+	}
+	#ticks .plane {
+		border-bottom: 4px solid var(--neutral-300);
+		border-top: 0;
+		margin-top: -18px;
+		align-items: flex-end;
 	}
 </style>
 

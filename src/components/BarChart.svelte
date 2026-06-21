@@ -48,7 +48,7 @@
 	</div>
 </div>
 
-<style lang="scss">
+<style>
 	#container {
 		height: 300px;
 		display: flex;
@@ -56,69 +56,71 @@
 		margin-top: 10px;
 	}
 
-		#chart {
-			width: 70px;
-			background-color: var(--neutral-50);
-			border: 1px solid var(--neutral-300);
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-end;
-			overflow: hidden;
-		}
+	#chart {
+		width: 70px;
+		background-color: var(--neutral-50);
+		border: 1px solid var(--neutral-300);
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		overflow: hidden;
+	}
 		
-			#layover, #direct, #outofrange {
-				width: 100%;
-				// transition: height .2s ease-in-out;
-				display: flex;
-				align-items: center;
-				justify-content: center;
+	#layover, #direct, #outofrange {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
-				span {
-					text-align: center;
-					color: #FFF;
-					font-size: 12px;
-					font-weight: 500;
-					line-height: 14px;
-					letter-spacing: 0em;
-					height: 0px;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-				}
-			}
+	/* Flatted span styling inside the chart segments */
+	#layover span, #direct span, #outofrange span {
+		text-align: center;
+		color: #FFF;
+		font-size: 12px;
+		font-weight: 500;
+		line-height: 14px;
+		letter-spacing: 0em;
+		height: 0px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
-			#direct { background-color: var(--primary-direct); }
-			#layover { background-color: var(--primary-layover); }
+	#direct { background-color: var(--primary-direct); }
+	#layover { background-color: var(--primary-layover); }
 
-			#outofrange {
-				flex-grow: 1;
-				
-				span {
-					color: var(--neutral-500);
-				}
-			}
+	#outofrange {
+		flex-grow: 1;
+	}
+		
+	/* Specific style modifier for the out-of-range text color */
+	#outofrange span {
+		color: var(--neutral-500);
+	}
 
 	#legend {
 		width: 60px;
 		height: 100%;
 		position: relative;
+	}
 
-		span {
-			position: absolute;
-			height: 1px;
-			display: flex;
-			flex-direction: column;
-			align-items: flex-start;
-			justify-content: center;
-			border-left: 6px solid var(--neutral-300);
-			width: 100%;
-			padding-left: 3px;
-			font-size: 12px;
-			font-weight: 400;
-			line-height: 14px;
-			letter-spacing: 0em;
-			text-align: left;
-			color: var(--neutral-500);
-		}
+	/* Flattened legend text indicator ticks */
+	#legend span {
+		position: absolute;
+		height: 1px;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: center;
+		border-left: 6px solid var(--neutral-300);
+		width: 100%;
+		padding-left: 3px;
+		font-size: 12px;
+		font-weight: 400;
+		line-height: 14px;
+		letter-spacing: 0em;
+		text-align: left;
+		color: var(--neutral-500);
 	}
 </style>
