@@ -82,13 +82,10 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
           <path d="M22 2L11 13"/>
           <path d="M22 2l-7 20-4-9-9-4 20-7z"/>
         </svg>
-        Tax Aviation Polluters
+        Polluters Pay
       </h2>
       <p class="lede">
-        The Green Flight Plan taxes <strong>both</strong> of aviation's fuels — but not equally.
-        <strong>Leaded Avgas 100LL</strong> is far more dangerous, so it gets a steep rising fee.
-        <strong>Conventional jet fuel</strong> gets a smaller excise to fund the transition.
-        Both need to be taxed <strong>from day one</strong>. The difference is urgency.
+        The Green Flight Plan levies fees on <strong>both</strong> of aviation's fuels — but not equally. Both fees rise every year so we create a clear and predictable long term incentive to move. It also gives a much clearer business case to doing what airlines already say they want to do.
       </p>
     </div>
   </div>
@@ -104,15 +101,17 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
         </svg>
         <div>
           <h3>Leaded Avgas 100LL</h3>
-          <span class="fuel-block__badge fuel-block__badge--danger">Most dangerous</span>
+          <span class="fuel-block__badge fuel-block__badge--danger">Highly dangerous</span>
         </div>
       </div>
+      <strong>$1/gal yearly rising fee</strong>
+      <strong> Previous Plan: Wait until Ban in 2031 and hope it doesn't get extended.</strong>
       <ul class="fuel-block__list">
-        <li>Last leaded fuel sold in the United States</li>
-        <li>No safe blood-lead level — children near GA airports show elevated levels &amp; reduced IQ</li>
-        <li>EPA formally found aircraft lead emissions endanger public health (2023)</li>
-        <li class="fuel-block__rate"><strong>$1/gal rising fee</strong> — phase out by 2031</li>
+        <li>We phased out leaded gas for cars in 1996 because of the health dangers.</li>
+        <li>No safe blood-lead level — children near GA airports show elevated levels <a href="https://pubmed.ncbi.nlm.nih.gov/36712926/#:~:text=We%20analyze%20over%2014%2C000%20blood%20lead%20samples,quantities%20of%20avgas%20sold%20at%20the%20airport">Study</a></li>
+        <li>EPA formally found aircraft lead emissions endanger public health (2023) <a href="https://www.epa.gov/newsreleases/epa-determines-lead-emissions-aircraft-engines-cause-or-contribute-air-pollution">Link</a></li>
       </ul>
+     
     </div>
     <div class="fuel-block fuel-block--jet">
       <div class="fuel-block__header">
@@ -124,11 +123,12 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
           <span class="fuel-block__badge fuel-block__badge--harm">Also harmful</span>
         </div>
       </div>
+      <strong>$0.25/gal yearly rising fee</strong>
+      <strong>Previous Plan: Hope airlines 2050 net zero plans work without outside action.</strong> 
       <ul class="fuel-block__list">
         <li>Aviation accounts for ~2.5% of global CO₂ emissions — and growing</li>
         <li>Fossil jet fuel has no price incentive to switch to SAF today</li>
         <li>Small excise funds electric charging infrastructure at airports</li>
-        <li class="fuel-block__rate"><strong>$0.25/gal proposed excise</strong> — ~$400M/yr for transition</li>
       </ul>
     </div>
   </div>
@@ -138,9 +138,7 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
       <h3>Scenario: what a rising fee could do</h3>
       <p>
         These are <strong>illustrative scenarios, not predictions</strong>. The actual outcome
-        depends on how quickly unleaded alternatives reach the market. The CSV data file at
-        <code>src/data/lead-tax-scenarios.csv</code> can be edited to explore different assumptions.
-        <a href="/about#scenarios">See full scenario tables →</a>
+        depends on how quickly unleaded alternatives reach the market.
       </p>
     </div>
 
@@ -170,14 +168,6 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
       </div>
     </div>
 
-    <div class="callout">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B94A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-        <line x1="12" y1="9" x2="12" y2="13"/>
-        <line x1="12" y1="17" x2="12.01" y2="17"/>
-      </svg>
-      <p>The 2031 ban arrives either way &mdash; with or without a tax. A rising fee ensures the transition happens <em>before</em> the deadline, not in a panic at the last minute.</p>
-    </div>
 
   </div>
 </section>
