@@ -82,14 +82,54 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
           <path d="M22 2L11 13"/>
           <path d="M22 2l-7 20-4-9-9-4 20-7z"/>
         </svg>
-        Tax leaded aviation fuel
+        Tax Aviation Polluters
       </h2>
       <p class="lede">
-        Avgas 100LL is the <strong>last leaded fuel</strong> sold in the United States.
-        The Green Flight Plan adds <strong>$1/gal each year</strong> to 100LL — turning a
-        voluntary phase-out into a predictable market collapse. We also propose a small excise
-        on <strong>non-SAF jet fuel</strong> to fund electric infrastructure at airports.
+        The Green Flight Plan taxes <strong>both</strong> of aviation's fuels — but not equally.
+        <strong>Leaded Avgas 100LL</strong> is far more dangerous, so it gets a steep rising fee.
+        <strong>Conventional jet fuel</strong> gets a smaller excise to fund the transition.
+        Both need to be taxed <strong>from day one</strong>. The difference is urgency.
       </p>
+    </div>
+  </div>
+
+  <!-- Two-fuel comparison -->
+  <div class="fuel-blocks">
+    <div class="fuel-block fuel-block--lead">
+      <div class="fuel-block__header">
+        <svg class="fuel-block__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+          <line x1="12" y1="9" x2="12" y2="13"/>
+          <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        <div>
+          <h3>Leaded Avgas 100LL</h3>
+          <span class="fuel-block__badge fuel-block__badge--danger">Most dangerous</span>
+        </div>
+      </div>
+      <ul class="fuel-block__list">
+        <li>Last leaded fuel sold in the United States</li>
+        <li>No safe blood-lead level — children near GA airports show elevated levels &amp; reduced IQ</li>
+        <li>EPA formally found aircraft lead emissions endanger public health (2023)</li>
+        <li class="fuel-block__rate"><strong>$1/gal rising fee</strong> — phase out by 2031</li>
+      </ul>
+    </div>
+    <div class="fuel-block fuel-block--jet">
+      <div class="fuel-block__header">
+        <svg class="fuel-block__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+        </svg>
+        <div>
+          <h3>Conventional Jet Fuel</h3>
+          <span class="fuel-block__badge fuel-block__badge--harm">Also harmful</span>
+        </div>
+      </div>
+      <ul class="fuel-block__list">
+        <li>Aviation accounts for ~2.5% of global CO₂ emissions — and growing</li>
+        <li>Fossil jet fuel has no price incentive to switch to SAF today</li>
+        <li>Small excise funds electric charging infrastructure at airports</li>
+        <li class="fuel-block__rate"><strong>$0.25/gal proposed excise</strong> — ~$400M/yr for transition</li>
+      </ul>
     </div>
   </div>
 
@@ -139,45 +179,6 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
       <p>The 2031 ban arrives either way &mdash; with or without a tax. A rising fee ensures the transition happens <em>before</em> the deadline, not in a panic at the last minute.</p>
     </div>
 
-    <!-- Non-SAF jet fuel tax note -->
-    <div class="jet-tax-note">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B94A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"/>
-        <line x1="12" y1="16" x2="12" y2="12"/>
-        <line x1="12" y1="8" x2="12.01" y2="8"/>
-      </svg>
-      <div>
-        <strong>Also proposed:</strong> A small excise on non-SAF jet fuel (Jet-A without a certified SAF blend). Even $0.25/gal would raise ~$400M/yr for electric charging infrastructure at airports — without affecting airlines already blending SAF.
-      </div>
-    </div>
-
-    <!-- Case for action -->
-    <div class="case">
-      <h3>Why this matters</h3>
-      <div class="reasons">
-        <div class="reason">
-          <span class="num">1</span>
-          <div>
-            <h3>Public health</h3>
-            <p>No safe blood-lead level exists. Children near GA airports show elevated lead levels linked to reduced IQ. The EPA formally found in 2023 that aircraft lead emissions endanger public health.</p>
-          </div>
-        </div>
-        <div class="reason">
-          <span class="num">2</span>
-          <div>
-            <h3>Market signal</h3>
-            <p>A predictable rising fee forces engine manufacturers and fuel suppliers to finally scale up unleaded alternatives (G100UL, Swift Fuel, Mogas STCs) instead of dragging their feet.</p>
-          </div>
-        </div>
-        <div class="reason">
-          <span class="num">3</span>
-          <div>
-            <h3>Revenue for transition</h3>
-            <p>Combined revenue from the 100LL fee and non-SAF jet tax can fund electric retrofits, charging infrastructure at GA and commercial airports, and R&amp;D for next-gen propulsion.</p>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -190,10 +191,10 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
     color: #fff;
     display: flex;
     justify-content: center;
-    padding: 5rem 1.25rem;
+    padding: 3rem 1.25rem;
   }
 
-  .hero-content { max-width: 720px; display: flex; flex-direction: column; gap: 1rem; }
+  .hero-content { max-width: 720px; display: flex; flex-direction: column; gap: 0.5rem; }
 
   .section-label {
     font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
@@ -201,23 +202,23 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
   }
 
   .hero-content h2 {
-    font-size: 2.5rem; font-weight: 600; letter-spacing: -0.02em;
+    font-size: 2rem; font-weight: 600; letter-spacing: -0.02em;
     margin: 0; line-height: 1.15; display: flex; align-items: center; gap: 0.5rem;
   }
 
   .hero-content .lede {
-    font-size: 1.125rem; line-height: 1.65; margin: 0; opacity: 0.9; max-width: 600px;
+    font-size: 1rem; line-height: 1.55; margin: 0; opacity: 0.9; max-width: 600px;
   }
 
   .hero-content .lede strong { color: #FFB3B3; }
 
   .content {
-    max-width: 720px; display: flex; flex-direction: column; gap: 2.5rem; padding: 4rem 1.25rem;
+    max-width: 720px; display: flex; flex-direction: column; gap: 1.5rem; padding: 2rem 1.25rem;
   }
 
   .section-header h3 {
     font-size: 1.5rem; font-weight: 500; color: var(--neutral-900);
-    margin: 0 0 0.75rem 0; letter-spacing: -0.02em;
+    margin: 0 0 0.5rem 0; letter-spacing: -0.02em;
   }
 
   .section-header p {
@@ -232,7 +233,7 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
 
   /* Graph */
   .graph-card {
-    border: 1px solid var(--neutral-200); border-radius: 12px; padding: 1.5rem; background: #fff;
+    border: 1px solid var(--neutral-200); border-radius: 10px; padding: 1rem; background: #fff;
   }
 
   .graph-head {
@@ -285,33 +286,124 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
   /* Callout */
   .callout {
     display: flex; gap: 0.75rem; align-items: flex-start;
-    padding: 1rem 1.25rem; background: #FFF5F0; border: 1px solid #FFD6C0;
-    border-radius: 10px; font-size: 0.9375rem; line-height: 1.5; color: #7A3A1A;
+    padding: 0.75rem 1rem; background: #FFF5F0; border: 1px solid #FFD6C0;
+    border-radius: 8px; font-size: 0.875rem; line-height: 1.45; color: #7A3A1A;
   }
 
   .callout svg { flex-shrink: 0; margin-top: 2px; }
 
-  /* Jet tax */
-  .jet-tax-note {
-    display: flex; gap: 0.75rem; align-items: flex-start;
-    padding: 1rem 1.25rem; background: #FFF5F0; border: 1px solid #FFD6C0;
-    border-radius: 10px; font-size: 0.9375rem; line-height: 1.5; color: #7A3A1A;
+  /* Fuel comparison blocks */
+  .fuel-blocks {
+    display: flex;
+    gap: 1.25rem;
+    max-width: 720px;
+    width: 100%;
+    padding: 1.5rem 1.25rem;
+    box-sizing: border-box;
   }
 
-  .jet-tax-note svg { flex-shrink: 0; margin-top: 2px; }
-  .jet-tax-note strong { color: #B94A4A; }
-
-  .case h3 { font-size: 1.5rem; font-weight: 500; color: var(--neutral-900); margin: 0 0 1.25rem 0; letter-spacing: -0.02em; }
-
-  .reasons { display: flex; flex-direction: column; gap: 1.25rem; }
-  .reason { display: flex; gap: 1rem; align-items: flex-start; }
-
-  .num {
-    flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
-    background: #B94A4A; color: #fff; display: flex; align-items: center;
-    justify-content: center; font-size: 14px; font-weight: 600;
+  .fuel-block {
+    flex: 1;
+    border-radius: 10px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
-  .reason h3 { font-size: 1rem; font-weight: 600; color: var(--neutral-900); margin: 0 0 0.25rem 0; }
-  .reason p { font-size: 0.9375rem; line-height: 1.5; color: var(--neutral-500); margin: 0; }
+  .fuel-block--lead {
+    background: #FFF5F0;
+    border: 1px solid #FFD6C0;
+  }
+
+  .fuel-block--jet {
+    background: #FFFDF5;
+    border: 1px solid #F0E6C0;
+  }
+
+  .fuel-block__header {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .fuel-block__icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .fuel-block--lead .fuel-block__icon {
+    color: #B94A4A;
+  }
+
+  .fuel-block--jet .fuel-block__icon {
+    color: #B98A2A;
+  }
+
+  .fuel-block__header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin: 0 0 0.25rem 0;
+  }
+
+  .fuel-block__badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+
+  .fuel-block__badge--danger {
+    background: #B94A4A;
+    color: #fff;
+  }
+
+  .fuel-block__badge--harm {
+    background: #D4A030;
+    color: #fff;
+  }
+
+  .fuel-block__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .fuel-block__list li {
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--neutral-600);
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .fuel-block__list li::before {
+    content: "·";
+    position: absolute;
+    left: 0.25rem;
+    font-weight: 700;
+    color: var(--neutral-400);
+  }
+
+  .fuel-block__rate {
+    margin-top: 0.25rem;
+  }
+
+  .fuel-block__rate strong {
+    color: var(--neutral-900);
+  }
+
+  @media (max-width: 640px) {
+    .fuel-blocks {
+      flex-direction: column;
+    }
+  }
+
 </style>
