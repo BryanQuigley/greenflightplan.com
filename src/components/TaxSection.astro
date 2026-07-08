@@ -147,8 +147,8 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
       <div class="graph-head">
         <h4>100LL demand under a rising fee</h4>
         <div class="graph-legend">
-          <span class="legend-line soft"></span> Soft Landing
-          <span class="legend-line notax"></span> No Tax
+          <span class="legend-line soft"></span> Increasing Fee
+          <span class="legend-line notax"></span> No Fee
         </div>
       </div>
       <div class="graph-wrap" set:html={svgContent}></div>
@@ -164,7 +164,7 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
       <div class="slabel">
         <span class="slabel-dot" style="background:{colors.notax}"></span>
         <strong>{scenarios.notax[0].demand}% → {scenarios.notax[scenarios.notax.length-1].demand}%</strong>
-        <span>No Tax &mdash; Voluntary transition, demand barely moves</span>
+        <span>No Fee &mdash; Voluntary transition, demand barely moves</span>
       </div>
     </div>
 
