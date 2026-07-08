@@ -15,11 +15,11 @@ const rows = lines.map(l => {
   };
 });
 
-const scenarios = { soft: [], rapid: [], notax: [] };
+const scenarios = { soft: [], notax: [] };
 for (const r of rows) scenarios[r.scenario].push(r);
 
 const years = scenarios.soft.map(r => r.year);
-const colors = { soft: '#D94A4A', rapid: '#7A1A1A', notax: '#999999' };
+const colors = { soft: '#D94A4A', notax: '#999999' };
 
 // Pre-compute SVG graph strings
 const W = 600, H = 240, padL = 44, padR = 12, padT = 12, padB = 34;
@@ -55,7 +55,7 @@ function buildLayer(key) {
 }
 
 const layers = {};
-for (const k of ['notax', 'soft', 'rapid']) layers[k] = buildLayer(k);
+for (const k of ['notax', 'soft']) layers[k] = buildLayer(k);
 
 const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
   ${gridLines}
@@ -64,16 +64,12 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
   ${feeLabels}
   <path d="${layers.notax.area}" fill="${colors.notax}" opacity="0.05"/>
   <path d="${layers.soft.area}" fill="${colors.soft}" opacity="0.06"/>
-  <path d="${layers.rapid.area}" fill="${colors.rapid}" opacity="0.06"/>
   <path d="${layers.notax.pts}" fill="none" stroke="${colors.notax}" stroke-width="2" stroke-linejoin="round" stroke-dasharray="6,3"/>
   <path d="${layers.soft.pts}" fill="none" stroke="${colors.soft}" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="${layers.rapid.pts}" fill="none" stroke="${colors.rapid}" stroke-width="2.5" stroke-linejoin="round"/>
   ${layers.notax.dots}
   ${layers.soft.dots}
-  ${layers.rapid.dots}
   ${layers.notax.endLabel}
   ${layers.soft.endLabel}
-  ${layers.rapid.endLabel}
 </svg>`;
 ---
 
@@ -114,7 +110,6 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
         <h4>100LL demand under a rising fee</h4>
         <div class="graph-legend">
           <span class="legend-line soft"></span> Soft Landing
-          <span class="legend-line rapid"></span> Rapid Collapse
           <span class="legend-line notax"></span> No Tax
         </div>
       </div>
@@ -127,11 +122,7 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
         <strong>{scenarios.soft[0].demand}% → {scenarios.soft[scenarios.soft.length-1].demand}%</strong>
         <span>Soft Landing &mdash; UL94 dominates, gradual phase-out</span>
       </div>
-      <div class="slabel">
-        <span class="slabel-dot" style="background:{colors.rapid}"></span>
-        <strong>{scenarios.rapid[0].demand}% → {scenarios.rapid[scenarios.rapid.length-1].demand}%</strong>
-        <span>Rapid Collapse &mdash; Drop-in unleaded, market tips at $3</span>
-      </div>
+
       <div class="slabel">
         <span class="slabel-dot" style="background:{colors.notax}"></span>
         <strong>{scenarios.notax[0].demand}% → {scenarios.notax[scenarios.notax.length-1].demand}%</strong>
@@ -260,7 +251,6 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
   }
 
   .legend-line.soft { background: #D94A4A; }
-  .legend-line.rapid { background: #7A1A1A; }
   .legend-line.notax { background: #999999; }
 
   .graph-wrap { width: 100%; }
