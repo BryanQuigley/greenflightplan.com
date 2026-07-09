@@ -47,18 +47,7 @@
         </svg>
       </div>
       <div class="panel-body">
-        <h3>Subscribe for updates</h3>
-        <p>Get notified when we add letter-writing tools, campaign milestones, and new data. No spam, just the three actions.</p>
-        <form class="subscribe-form" onsubmit="event.preventDefault(); alert('Subscription coming soon!')">
-          <input type="email" placeholder="you@example.com" class="fake-input" />
-          <button type="submit" class="action-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-              <polyline points="22,6 12,13 2,6"/>
-            </svg>
-            Subscribe
-          </button>
-        </form>
+        <script src='https://actionnetwork.org/widgets/v6/form/sign-up-for-updates-252?format=js&source=widget' is:inline></script><div id='can-form-area-sign-up-for-updates-252' style='width: 100%'><!-- this div is the target for our HTML insertion --></div>
       </div>
     </div>
 
@@ -180,31 +169,6 @@
 
   .action-btn:active {
     transform: translateY(0);
-  }
-
-  .subscribe-form {
-    display: flex;
-    gap: 0.5rem;
-    align-items: stretch;
-    margin-top: 0.25rem;
-  }
-
-  .fake-input {
-    flex: 1;
-    padding: 0.55rem 0.75rem;
-    border: 1px solid var(--neutral-300);
-    border-radius: 8px;
-    font-size: 0.875rem;
-    font-family: inherit;
-    background: #fff;
-    color: var(--neutral-900);
-    min-width: 180px;
-  }
-
-  .fake-input:focus {
-    outline: none;
-    border-color: #E0760E;
-    box-shadow: 0 0 0 3px rgba(224, 118, 14, 0.12);
   }
 
   .callout {
