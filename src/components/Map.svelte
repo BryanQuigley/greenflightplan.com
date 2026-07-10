@@ -1,25 +1,18 @@
 <script>
-	// I feel like this is slightly unconventional D3 code
-	// I wanted to try out server-side rendering but also interactivity
-	// It's based on https://github.com/Rich-Harris/svelte-d3-arc-demo
+	import { range, visibleSpokes, selectedAirport } from '../lib/stores.js';
+	import * as d3 from 'd3';
+	import { mesh, feature } from 'topojson-client';
 
-	import { range, visibleSpokes, selectedAirport } from "../lib/stores.js";
-	import { tooltip } from 'svooltip';
-
-	import * as d3 from "d3";
-	import { mesh, feature } from "topojson-client";
-	
 	let { map, airports } = $props();
 
 	const projection = d3.geoAlbersUsa().scale(1300).translate([487.5, 305]);
 	const path = d3.geoPath();
 	const pathProjected = d3.geoPath(projection);
-	// Convert Topojson to mesh
 	const states = mesh(map, map.objects.states, (a, b) => a !== b);
 	const nation = feature(map, map.objects.nation);
 
 	let airportLocked = false;
-	
+
 	function lockAirport(iataCode) {
 		if(iataCode === $selectedAirport) iataCode = undefined;
 		airportLocked = true;
@@ -30,75 +23,72 @@
 		airportLocked = false;
 		$selectedAirport = undefined;
 	}
-	
+
 	function spokeColor({properties}) {
 		if(properties.DISTANCE <= $range) return '#61A0FF';
 		return '#FF8A00';
 	}
 
-	// construct scales
-	// Map spoke width to passenger count
 	const spokeWidthScale = d3.scaleLinear().domain([1, 102, 315, 720, 2029]).range([.5,.75,1.25,3]);
-	// Map spoke opacity to departures performed
-	const spokeOpacityScale = d3.scaleLinear().domain([1, 15712, 47498, 102776, 248722]).range([.2, .3, .4, .5])
-	// Modifiers to make sure we see something in lower range
+	const spokeOpacityScale = d3.scaleLinear().domain([1, 15712, 47498, 102776, 248722]).range([.2, .3, .4, .5]);
 	const spokeWidthModifier = d3.scaleLinear().domain([0,1000]).range([0,0]).clamp(true);
 	const spokeOpacityModifier = d3.scaleLinear().domain([0,1000]).range([.25, -.1]).clamp(true);
 
-	const tooltipOptions = {
-		delay: [100, 0],
-		offset: 2,
-	};
-	
-
 	function spokeOpacity(passengers) {
-		// general opacity
 		const opacity = spokeOpacityScale(passengers) + spokeOpacityModifier($range);
-		// bump if we're selecting a single airport and there aren't many spokes
 		if($visibleSpokes.spokes.length <= 20) return Math.max(0.5, opacity);
 		return opacity;
 	}
 
+	let hoveredAirport = $state(null);
 </script>
 
-	<div onclick={unlockAirport} role="button" aria-label="Deselect airport">
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<!-- svelte-ignore a11y_interactive_supports_focus -->
+<div onclick={unlockAirport} role="button" aria-label="Deselect airport">
 	<svg viewBox='18 13 940 595' preserveAspectRatio="xMinYMin meet" id="airports">
-		<!-- Continental US Geography -->
 		<g fill="none" stroke-linejoin="round" stroke-linecap="round">
 			<path stroke-width="1" stroke="var(--neutral-300)" fill="var(--neutral-50)" d="{path(nation)}" />
 			<path stroke-width=".6" stroke="var(--neutral-300)" d="{path(states)}" />
 		</g>
-		
-		<!-- Spokes -->
+
 		<g fill="none" stroke="#000" stroke-linejoin="round" stroke-linecap="round" id="spokes">
 			{#each $visibleSpokes.spokes as spoke (spoke.id)}
-			<path 
+			<path
 				class="spoke"
-				stroke="{spokeColor(spoke)}" 
+				stroke="{spokeColor(spoke)}"
 				stroke-width="{ spokeWidthScale(spoke.properties.DEPARTURES_PERFORMED) + spokeWidthModifier($range) }"
 				stroke-opacity="{ spokeOpacity(spoke.properties.PASSENGERS) }"
 				d="{pathProjected(spoke)}"
 			/>
 			{/each}
 		</g>
-		
-		<!-- Airports -->
+
 		<g fill="rgba(0,0,0,.25)" stroke-width="9" stroke="transparent" stroke-linejoin="round" stroke-linecap="round">
 			{#each airports.features as airport}
-				<circle 
-					cx="{projection(airport.geometry.coordinates)[0]}" 
-					cy="{projection(airport.geometry.coordinates)[1]}" 
-					r={airport.properties.iata_code === $selectedAirport ? "4" : "2.25"}
+				{@const isSelected = airport.properties.iata_code === $selectedAirport}
+				{@const isHovered = airport.properties.iata_code === hoveredAirport}
+				<circle
+					cx="{projection(airport.geometry.coordinates)[0]}"
+					cy="{projection(airport.geometry.coordinates)[1]}"
+					r={isSelected ? "4" : "2.25"}
 					onclick={(e) => { e.stopPropagation(); lockAirport(airport.properties.iata_code); }}
-					class:selected={ airport.properties.iata_code === $selectedAirport }
-					onkeydown={(e) => e.key === 'Enter' && lockAirport(airport.properties.iata_code)}
+					onmouseenter={() => hoveredAirport = airport.properties.iata_code}
+					onmouseleave={() => hoveredAirport = null}
+					class:selected={isSelected}
+					class:hovered={isHovered}
 					role="button"
 					tabindex="0"
-					use:tooltip={{
-						...tooltipOptions,
-						content: airport.properties.iata_code
-					}}
 				/>
+				{#if isHovered || isSelected}
+					<text
+						x="{projection(airport.geometry.coordinates)[0]}"
+						y="{projection(airport.geometry.coordinates)[1] - 8}"
+						text-anchor="middle"
+						class="airport-label"
+					>{airport.properties.iata_code}</text>
+				{/if}
 			{/each}
 			</g>
 	</svg>
@@ -114,26 +104,28 @@
         height: 100%;
     }
 
-    @keyframes fade-in {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
     #spokes {
         pointer-events: none;
     }
 
-    /* Clean, native CSS compliance */
     #airports circle {
         cursor: pointer;
     }
-    
-    #airports circle:hover {
+
+    #airports circle:hover,
+    #airports circle.hovered {
         fill: rgba(0,0,0,.7);
     }
 
     #airports circle.selected {
         fill: rgba(0,0,0,.7);
         transition: fill .25s;
+    }
+
+    .airport-label {
+        font-size: 10px;
+        font-weight: 600;
+        fill: var(--neutral-700);
+        pointer-events: none;
     }
 </style>

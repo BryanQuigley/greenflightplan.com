@@ -1,6 +1,3 @@
----
----
-
 <section id="saf">
   <div class="hero-bg">
     <div class="hero-content">
@@ -63,8 +60,6 @@
         <p>Electric for &lt;500 mi, SAF for everything else — this tiered approach is the fastest, most realistic path to net-zero aviation.</p>
       </div>
     </div>
-
-
   </div>
 </section>
 
@@ -155,35 +150,5 @@
     line-height: 1.5;
     color: var(--neutral-500);
     margin: 0;
-  }
-
-  .callout-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  .callout-stat {
-    border-left: 4px solid #2D9D4E;
-    padding: 1.25rem;
-    background: #F0FAF3;
-    border-radius: 0 10px 10px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-
-  .stat-value {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #2D9D4E;
-    letter-spacing: -0.02em;
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 0.875rem;
-    line-height: 1.4;
-    color: var(--neutral-600);
   }
 </style>

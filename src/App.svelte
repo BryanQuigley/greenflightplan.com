@@ -1,0 +1,231 @@
+<script>
+  import Nav from './components/Nav.svelte';
+  import TaxSection from './components/TaxSection.svelte';
+  import Map from './components/Map.svelte';
+  import RangeSlider from './components/RangeSlider.svelte';
+  import Summary from './components/Summary.svelte';
+  import Sidebar from './components/Sidebar.svelte';
+  import SafSection from './components/SafSection.svelte';
+  import TakeAction from './components/TakeAction.svelte';
+  import Footer from './components/Footer.svelte';
+
+  import map from './data/states-contiguous-albers-10m.json';
+  import airports from './data/airports.json';
+</script>
+
+<Nav />
+<TaxSection />
+
+<div class="divider divider-red">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B94A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
+  </svg>
+</div>
+
+<section id="electric">
+  <div class="hero-bg">
+    <div class="hero-content">
+      <span class="section-label">Action 2</span>
+      <h2>
+        <svg class="hero-plane" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 2L11 13"/>
+          <path d="M22 2l-7 20-4-9-9-4 20-7z"/>
+        </svg>
+        Electrify: start with the smallest planes first
+      </h2>
+      <p class="lede">
+        <svg class="hero-battery" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="1" y="6" width="18" height="12" rx="2" ry="2"/>
+          <line x1="23" y1="10" x2="23" y2="14"/>
+        </svg>
+        The largest US airlines carried out more than 700,000 domestic passenger flights
+        across the contiguous United States in August 2022. They moved 110 million passengers,
+        emitting approximately 12 million metric tons CO₂.
+      </p>
+      <p class="lede">
+        Short-haul routes — those under 500 miles — are the low-hanging fruit. Electric planes
+        already in development can replace these flights today with zero tailpipe emissions,
+        quieter skies, and lower operating costs. Use the slider to choose a range and see which
+        routes could go electric.
+      </p>
+    </div>
+  </div>
+  <div class="electric-content">
+    <section id="summary">
+      <Summary />
+    </section>
+
+    <section id="controls">
+      <RangeSlider />
+    </section>
+
+    <section id="visualization">
+      <div id="left">
+        <Sidebar />
+      </div>
+      <div id="right">
+        <Map {map} {airports} />
+      </div>
+    </section>
+  </div>
+</section>
+
+<div class="divider divider-blue">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3876FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="1" y="6" width="18" height="12" rx="2" ry="2"/>
+    <line x1="23" y1="10" x2="23" y2="14"/>
+  </svg>
+</div>
+
+<SafSection />
+
+<div class="divider divider-amber">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E0A020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 20h9"/>
+    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+  </svg>
+</div>
+
+<TakeAction />
+<Footer />
+
+<style>
+  #electric {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .hero-bg {
+    width: 100%;
+    background: linear-gradient(135deg, #0A1A3B 0%, #1A3A7A 40%, #3876FF 100%);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    padding: 5rem 1.25rem;
+  }
+
+  .hero-content {
+    max-width: 780px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.6;
+  }
+
+  .hero-content h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0;
+    line-height: 1.15;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .hero-plane {
+    flex-shrink: 0;
+  }
+
+  .hero-content .lede {
+    font-size: 1.125rem;
+    line-height: 1.65;
+    margin: 0;
+    opacity: 0.9;
+    max-width: 640px;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .hero-battery {
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .electric-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
+    background: #fff;
+    width: 100%;
+    max-width: 100vw;
+    padding-top: 2.5rem;
+  }
+
+  .electric-content section {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    box-sizing: border-box;
+  }
+
+  #summary {
+    min-width: 750px;
+    max-width: 850px;
+  }
+
+  #controls, #visualization {
+    max-width: 1020px;
+    display: flex;
+    width: 100%;
+  }
+
+  #controls {
+    flex-direction: column;
+  }
+
+  #visualization {
+    flex-direction: row;
+    align-items: stretch;
+    margin-top: 35px;
+  }
+
+  #visualization #right {
+    flex-grow: 1;
+    margin-right: -15px;
+  }
+
+  .divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1.5rem 0;
+    position: relative;
+  }
+
+  .divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+  }
+
+  .divider-red { background: #fff; }
+  .divider-red::before { background: #F0D0D0; }
+
+  .divider-blue { background: #fff; }
+  .divider-blue::before { background: #C0D4FF; }
+
+  .divider-amber { background: #fff; }
+  .divider-amber::before { background: #F0D99A; }
+
+  .divider svg {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    padding: 0 0.75rem;
+  }
+</style>

@@ -1,7 +1,7 @@
 <script>
-	import { spokes, visibleSpokes, selectedAirport } from "../lib/stores";
-	import FlightStats from "/src/components/FlightStats.svelte";
-	import BarChart from '/src/components/BarChart.svelte';
+	import { spokes, visibleSpokes, selectedAirport } from '../lib/stores.js';
+	import FlightStats from './FlightStats.svelte';
+	import BarChart from './BarChart.svelte';
 </script>
 
 <div id="container">

@@ -1,77 +1,75 @@
----
-import fs from 'node:fs';
+<script>
+  import csvRaw from '../data/lead-tax-scenarios.csv?raw';
 
-const csvRaw = fs.readFileSync('src/data/lead-tax-scenarios.csv', 'utf-8').trim();
-const lines = csvRaw.split('\n').slice(1);
-const rows = lines.map(l => {
-  const [scenario, year, fee, demand, revenue, ...behaviorParts] = l.split(',');
-  return {
-    scenario,
-    year: parseInt(year),
-    fee: parseFloat(fee),
-    demand: parseFloat(demand),
-    revenue: parseFloat(revenue),
-    behavior: behaviorParts.join(',').replace(/^"|"$/g, ''),
-  };
-});
+  const lines = csvRaw.trim().split('\n').slice(1);
+  const rows = lines.map(l => {
+    const [scenario, year, fee, demand, revenue, ...behaviorParts] = l.split(',');
+    return {
+      scenario,
+      year: parseInt(year),
+      fee: parseFloat(fee),
+      demand: parseFloat(demand),
+      revenue: parseFloat(revenue),
+      behavior: behaviorParts.join(',').replace(/^"|"$/g, ''),
+    };
+  });
 
-const scenarios = { soft: [], notax: [] };
-for (const r of rows) scenarios[r.scenario].push(r);
+  const scenarios = { soft: [], notax: [] };
+  for (const r of rows) scenarios[r.scenario].push(r);
 
-const years = scenarios.soft.map(r => r.year);
-const colors = { soft: '#D94A4A', notax: '#999999' };
+  const years = scenarios.soft.map(r => r.year);
+  const colors = { soft: '#D94A4A', notax: '#999999' };
 
-// Pre-compute SVG graph strings
-const W = 600, H = 240, padL = 44, padR = 12, padT = 12, padB = 34;
-const gW = W - padL - padR, gH = H - padT - padB;
-const x = (i) => Math.round(padL + (i / (years.length - 1)) * gW);
-const y = (v) => Math.round(padT + gH - (v / 100) * gH);
+  const W = 600, H = 240, padL = 44, padR = 12, padT = 12, padB = 34;
+  const gW = W - padL - padR, gH = H - padT - padB;
+  const x = (i) => Math.round(padL + (i / (years.length - 1)) * gW);
+  const y = (v) => Math.round(padT + gH - (v / 100) * gH);
 
-const gridY = [0, 25, 50, 75, 100];
-const gridLines = gridY.map(p => `<line x1="${padL}" y1="${y(p)}" x2="${W - padR}" y2="${y(p)}" stroke="#E8E8E8" stroke-width="1"/>`).join('');
-const yLabels = gridY.map(p => `<text x="${padL - 6}" y="${y(p) + 4}" text-anchor="end" fill="#A1A1AA" font-size="11">${p}%</text>`).join('');
-const xLabels = years.map((yr, i) => `<text x="${x(i)}" y="${H - 9}" text-anchor="middle" fill="#A1A1AA" font-size="11">${yr}</text>`).join('');
-const feeLabels = years.map((_, i) => {
-  const f = scenarios.soft[i].fee;
-  return f > 0 ? `<text x="${x(i)}" y="${H - 9 + 14}" text-anchor="middle" fill="#CCC" font-size="9">+$${f.toFixed(0)}</text>` : '';
-}).join('');
+  const gridY = [0, 25, 50, 75, 100];
+  const gridLines = gridY.map(p => `<line x1="${padL}" y1="${y(p)}" x2="${W - padR}" y2="${y(p)}" stroke="#E8E8E8" stroke-width="1"/>`).join('');
+  const yLabels = gridY.map(p => `<text x="${padL - 6}" y="${y(p) + 4}" text-anchor="end" fill="#A1A1AA" font-size="11">${p}%</text>`).join('');
+  const xLabels = years.map((yr, i) => `<text x="${x(i)}" y="${H - 9}" text-anchor="middle" fill="#A1A1AA" font-size="11">${yr}</text>`).join('');
+  const feeLabels = years.map((_, i) => {
+    const f = scenarios.soft[i].fee;
+    return f > 0 ? `<text x="${x(i)}" y="${H - 9 + 14}" text-anchor="middle" fill="#CCC" font-size="9">+$${f.toFixed(0)}</text>` : '';
+  }).join('');
 
-function buildLayer(key) {
-  const data = scenarios[key];
-  const pts = data.map((r, i) => `${i === 0 ? 'M' : 'L'}${x(i)},${y(r.demand)}`).join('');
-  const bot = y(0);
-  const area = `M${x(0)},${bot}${pts.slice(1)}L${x(data.length - 1)},${bot}Z`;
-  const dots = data.map((r, i) => `<circle cx="${x(i)}" cy="${y(r.demand)}" r="4" fill="${colors[key]}" stroke="#fff" stroke-width="2"/>`).join('');
-  const last = data[data.length - 1];
-  let endLabel;
-  if (last.demand < 1) {
-    endLabel = `<text x="${x(data.length - 1) - 8}" y="${y(last.demand) - 7}" text-anchor="end" fill="${colors[key]}" font-size="12" font-weight="700">&lt;1%</text>`;
-  } else if (key === 'notax') {
-    endLabel = `<text x="${x(data.length - 1) - 8}" y="${y(last.demand) - 6}" text-anchor="end" fill="${colors[key]}" font-size="11" font-weight="600">${last.demand}%</text>`;
-  } else {
-    endLabel = `<text x="${x(data.length - 1) + 8}" y="${y(last.demand) + 4}" fill="${colors[key]}" font-size="12" font-weight="700">${last.demand}%</text>`;
+  function buildLayer(key) {
+    const data = scenarios[key];
+    const pts = data.map((r, i) => `${i === 0 ? 'M' : 'L'}${x(i)},${y(r.demand)}`).join('');
+    const bot = y(0);
+    const area = `M${x(0)},${bot}${pts.slice(1)}L${x(data.length - 1)},${bot}Z`;
+    const dots = data.map((r, i) => `<circle cx="${x(i)}" cy="${y(r.demand)}" r="4" fill="${colors[key]}" stroke="#fff" stroke-width="2"/>`).join('');
+    const last = data[data.length - 1];
+    let endLabel;
+    if (last.demand < 1) {
+      endLabel = `<text x="${x(data.length - 1) - 8}" y="${y(last.demand) - 7}" text-anchor="end" fill="${colors[key]}" font-size="12" font-weight="700">&lt;1%</text>`;
+    } else if (key === 'notax') {
+      endLabel = `<text x="${x(data.length - 1) - 8}" y="${y(last.demand) - 6}" text-anchor="end" fill="${colors[key]}" font-size="11" font-weight="600">${last.demand}%</text>`;
+    } else {
+      endLabel = `<text x="${x(data.length - 1) + 8}" y="${y(last.demand) + 4}" fill="${colors[key]}" font-size="12" font-weight="700">${last.demand}%</text>`;
+    }
+    return { pts, area, dots, endLabel, color: colors[key] };
   }
-  return { pts, area, dots, endLabel, color: colors[key] };
-}
 
-const layers = {};
-for (const k of ['notax', 'soft']) layers[k] = buildLayer(k);
+  const layers = {};
+  for (const k of ['notax', 'soft']) layers[k] = buildLayer(k);
 
-const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
-  ${gridLines}
-  ${yLabels}
-  ${xLabels}
-  ${feeLabels}
-  <path d="${layers.notax.area}" fill="${colors.notax}" opacity="0.05"/>
-  <path d="${layers.soft.area}" fill="${colors.soft}" opacity="0.06"/>
-  <path d="${layers.notax.pts}" fill="none" stroke="${colors.notax}" stroke-width="2" stroke-linejoin="round" stroke-dasharray="6,3"/>
-  <path d="${layers.soft.pts}" fill="none" stroke="${colors.soft}" stroke-width="2.5" stroke-linejoin="round"/>
-  ${layers.notax.dots}
-  ${layers.soft.dots}
-  ${layers.notax.endLabel}
-  ${layers.soft.endLabel}
-</svg>`;
----
+  const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
+    ${gridLines}
+    ${yLabels}
+    ${xLabels}
+    ${feeLabels}
+    <path d="${layers.notax.area}" fill="${colors.notax}" opacity="0.05"/>
+    <path d="${layers.soft.area}" fill="${colors.soft}" opacity="0.06"/>
+    <path d="${layers.notax.pts}" fill="none" stroke="${colors.notax}" stroke-width="2" stroke-linejoin="round" stroke-dasharray="6,3"/>
+    <path d="${layers.soft.pts}" fill="none" stroke="${colors.soft}" stroke-width="2.5" stroke-linejoin="round"/>
+    ${layers.notax.dots}
+    ${layers.soft.dots}
+    ${layers.notax.endLabel}
+    ${layers.soft.endLabel}
+  </svg>`;
+</script>
 
 <section id="tax">
   <div class="hero-bg">
@@ -90,7 +88,6 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
     </div>
   </div>
 
-  <!-- Two-fuel comparison -->
   <div class="fuel-blocks">
     <div class="fuel-block fuel-block--lead">
       <div class="fuel-block__header">
@@ -111,7 +108,6 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
         <li>No safe blood-lead level — children near GA airports show elevated levels <a href="https://pubmed.ncbi.nlm.nih.gov/36712926/#:~:text=We%20analyze%20over%2014%2C000%20blood%20lead%20samples,quantities%20of%20avgas%20sold%20at%20the%20airport">Study</a></li>
         <li>EPA formally found aircraft lead emissions endanger public health (2023) <a href="https://www.epa.gov/newsreleases/epa-determines-lead-emissions-aircraft-engines-cause-or-contribute-air-pollution">Link</a></li>
       </ul>
-     
     </div>
     <div class="fuel-block fuel-block--jet">
       <div class="fuel-block__header">
@@ -124,7 +120,7 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
         </div>
       </div>
       <strong>$0.25/gal yearly rising fee</strong>
-      <strong>Previous Plan: Hope airlines 2050 net zero plans work without outside action.</strong> 
+      <strong>Previous Plan: Hope airlines 2050 net zero plans work without outside action.</strong>
       <ul class="fuel-block__list">
         <li>Aviation accounts for ~2.5% of global CO₂ emissions — and growing</li>
         <li>Fossil jet fuel has no price incentive to switch to SAF today</li>
@@ -142,7 +138,6 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
       </p>
     </div>
 
-    <!-- Graph -->
     <div class="graph-card">
       <div class="graph-head">
         <h4>100LL demand under a rising fee</h4>
@@ -151,24 +146,21 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
           <span class="legend-line notax"></span> No Fee
         </div>
       </div>
-      <div class="graph-wrap" set:html={svgContent}></div>
+      <div class="graph-wrap">{@html svgContent}</div>
     </div>
 
     <div class="scenario-labels">
       <div class="slabel">
         <span class="slabel-dot" style="background:{colors.soft}"></span>
-        <strong>{scenarios.soft[0].demand}% → {scenarios.soft[scenarios.soft.length-1].demand}%</strong>
+        <strong>{scenarios.soft[0].demand}% &rarr; {scenarios.soft[scenarios.soft.length-1].demand}%</strong>
         <span>Soft Landing &mdash; UL94 dominates, gradual phase-out</span>
       </div>
-
       <div class="slabel">
         <span class="slabel-dot" style="background:{colors.notax}"></span>
-        <strong>{scenarios.notax[0].demand}% → {scenarios.notax[scenarios.notax.length-1].demand}%</strong>
+        <strong>{scenarios.notax[0].demand}% &rarr; {scenarios.notax[scenarios.notax.length-1].demand}%</strong>
         <span>No Fee &mdash; Voluntary transition, demand barely moves</span>
       </div>
     </div>
-
-
   </div>
 </section>
 
@@ -200,7 +192,7 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
     font-size: 1rem; line-height: 1.55; margin: 0; opacity: 0.9; max-width: 600px;
   }
 
-  .hero-content .lede strong { color: #FFB3B3; }
+  .hero-content .lede :global(strong) { color: #FFB3B3; }
 
   .content {
     max-width: 720px; display: flex; flex-direction: column; gap: 1.5rem; padding: 2rem 1.25rem;
@@ -215,13 +207,6 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
     font-size: 1rem; line-height: 1.6; color: var(--neutral-500); margin: 0;
   }
 
-  .section-header a { color: #B94A4A; }
-
-  .section-header code {
-    background: var(--neutral-200); padding: 1px 5px; border-radius: 3px; font-size: 0.85rem;
-  }
-
-  /* Graph */
   .graph-card {
     border: 1px solid var(--neutral-200); border-radius: 10px; padding: 1rem; background: #fff;
   }
@@ -245,9 +230,7 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
   .legend-line.notax { background: #999999; }
 
   .graph-wrap { width: 100%; }
-  .graph { width: 100%; height: auto; display: block; }
 
-  /* Scenario labels */
   .scenario-labels {
     display: flex;
     flex-direction: column;
@@ -273,16 +256,6 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
     min-width: 5em;
   }
 
-  /* Callout */
-  .callout {
-    display: flex; gap: 0.75rem; align-items: flex-start;
-    padding: 0.75rem 1rem; background: #FFF5F0; border: 1px solid #FFD6C0;
-    border-radius: 8px; font-size: 0.875rem; line-height: 1.45; color: #7A3A1A;
-  }
-
-  .callout svg { flex-shrink: 0; margin-top: 2px; }
-
-  /* Fuel comparison blocks */
   .fuel-blocks {
     display: flex;
     gap: 1.25rem;
@@ -375,19 +348,11 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
   }
 
   .fuel-block__list li::before {
-    content: "·";
+    content: "\00b7";
     position: absolute;
     left: 0.25rem;
     font-weight: 700;
     color: var(--neutral-400);
-  }
-
-  .fuel-block__rate {
-    margin-top: 0.25rem;
-  }
-
-  .fuel-block__rate strong {
-    color: var(--neutral-900);
   }
 
   @media (max-width: 640px) {
@@ -395,5 +360,4 @@ const svgContent = `<svg viewBox="0 0 ${W} ${H}" class="graph">
       flex-direction: column;
     }
   }
-
 </style>
