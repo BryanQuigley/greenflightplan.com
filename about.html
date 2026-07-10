@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>About — Green Flight Plan</title>
+  <meta name="description" content="About the Green Flight Plan — methodology and data sources for our interactive roadmap to clean aviation." />
+  <link rel="stylesheet" href="/styles/reset.css" />
+  <link rel="stylesheet" href="/styles/global.css" />
+  <style>
+    main { display: flex; flex-direction: column; align-items: center; }
+    section { padding: 4rem 1.25rem; display: flex; justify-content: center; width: 100%; box-sizing: border-box; }
+    #about { background: #FAFAFA; }
+    #scenarios { background: #fff; }
+    #methodology { background: #FAFAFA; }
+    .content { max-width: 680px; display: flex; flex-direction: column; gap: 1.5rem; }
+    .back { font-size: 0.875rem; color: var(--neutral-500); text-decoration: none; }
+    .back:hover { color: var(--neutral-900); }
+    h2 { font-size: 2rem; font-weight: 500; color: var(--neutral-900); letter-spacing: -0.02em; margin: 0; }
+    .lede { font-size: 1.125rem; line-height: 1.6; color: var(--neutral-700); margin: 0; }
+    .lede code { background: var(--neutral-200); padding: 1px 5px; border-radius: 3px; font-size: 0.95rem; }
+    .scenario-block { border-left: 4px solid; padding: 1rem 1.25rem; background: #FAFAFA; border-radius: 0 8px 8px 0; display: flex; flex-direction: column; gap: 0.75rem; }
+    .scenario-block h3 { font-size: 1.1rem; font-weight: 600; color: var(--neutral-900); margin: 0; }
+    .scenario-block > p { font-size: 0.9rem; line-height: 1.5; color: var(--neutral-500); margin: 0; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--neutral-200); border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
+    thead { background: rgba(0,0,0,0.04); }
+    th { text-align: left; padding: 0.5rem 0.6rem; font-weight: 600; color: var(--neutral-700); border-bottom: 1px solid var(--neutral-200); white-space: nowrap; }
+    td { padding: 0.45rem 0.6rem; color: var(--neutral-600); border-bottom: 1px solid var(--neutral-100); }
+    tr:last-child td { border-bottom: none; }
+    .rev-total { font-size: 0.85rem; color: var(--neutral-500); margin: 0; font-style: italic; }
+    #methodology p { font-size: 0.9375rem; line-height: 1.65; color: var(--neutral-600); margin: 0; }
+    #methodology a { color: var(--primary-direct); }
+    nav { position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 0 1.5rem; height: 52px; background: rgba(255,255,255,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--neutral-200); }
+    .logo { font-weight: 700; font-size: 17px; color: #1B5E2A; text-decoration: none; letter-spacing: -0.02em; display: flex; align-items: center; gap: 7px; }
+    .logo svg { color: #2D9D4E; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 13px; font-weight: 500; color: var(--neutral-500); text-decoration: none; }
+    .nav-links a:hover { color: var(--neutral-900); }
+    .about-link { padding: 4px 10px; border: 1px solid var(--neutral-300); border-radius: 20px; font-size: 12px !important; }
+    .about-link:hover { border-color: var(--neutral-500); }
+    footer { width: 100%; padding: 2rem; text-align: center; }
+    footer a { color: var(--neutral-500); text-decoration: none; font-size: 0.875rem; }
+    footer a:hover { color: var(--neutral-900); }
+    .page-footer { width: 100%; padding: 1.5rem 2rem; display: flex; justify-content: center; color: var(--neutral-400); border-top: 1px solid var(--neutral-200); }
+    .page-footer a { color: var(--neutral-500); text-decoration: none; }
+    .page-footer a:hover { color: var(--neutral-900); }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="logo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+      Green Flight Plan
+    </a>
+    <div class="nav-links">
+      <a href="/#tax">Polluters Pay</a>
+      <a href="/#electric">Electrify</a>
+      <a href="/#saf">SAF</a>
+      <a href="/#take-action">Take Action</a>
+      <a href="/about" class="about-link">About</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="about">
+      <div class="content">
+        <a href="/" class="back">&larr; Back to the map</a>
+        <h2>About this site</h2>
+        <p class="lede">
+          Cleaning up aviation needs three things to happen at once — and this site is a
+          visual argument for all three.
+        </p>
+        <a href="https://github.com/BryanQuigley/greenflightplan.com">Check us out on Github</a>
+        <p>
+          <a href="/data/lead-tax-scenarios.csv">Download the lead-tax scenario data (CSV)</a>
+        </p>
+      </div>
+    </section>
+
+    <section id="scenarios">
+      <div class="content">
+        <h2>Lead-tax scenarios</h2>
+        <p class="lede">
+          These are illustrative scenarios, not predictions. They show how a rising $1/gal fee
+          on 100LL could play out depending on how quickly unleaded alternatives reach the market.
+        </p>
+
+        <div class="scenario-block" style="border-left-color: #999999;">
+          <h3>No Tax — Business as Usual</h3>
+          <p>Voluntary transition, no price signal. Without a fee, demand barely budges.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Year</th><th>100LL Demand</th><th>Market Behavior</th></tr></thead>
+              <tbody>
+                <tr><td>2025</td><td>98%</td><td>Current market, minimal UL94 availability.</td></tr>
+                <tr><td>2030</td><td>92%</td><td>UL94 trickles in at major hubs, little change at small airports.</td></tr>
+                <tr><td>2035</td><td>84%</td><td>Some high-performance planes convert, most stay on 100LL.</td></tr>
+                <tr><td>2040</td><td>72%</td><td>Gradual shift, but no urgency without a price signal.</td></tr>
+                <tr><td>2050</td><td>45%</td><td>Market-driven transition nearly complete, but decades too slow.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="scenario-block" style="border-left-color: #D94A4A;">
+          <h3>Soft Landing — UL94 Dominance</h3>
+          <p>100-octane unleaded takes time to reach every airport. High-performance planes keep burning 100LL longer.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Year</th><th>Fee/gal</th><th>100LL Demand</th><th>Est. Revenue</th><th>Market Behavior</th></tr></thead>
+              <tbody>
+                <tr><td>2025</td><td>$1.00</td><td>98%</td><td>$58M</td><td>Fee begins, minimal immediate change.</td></tr>
+                <tr><td>2030</td><td>$2.00</td><td>75%</td><td>$155M</td><td>UL94 spreads to major hubs, demand drops noticeably.</td></tr>
+                <tr><td>2035</td><td>$3.00</td><td>48%</td><td>$140M</td><td>Rapid transition at training airports, slower for complex aircraft.</td></tr>
+                <tr><td>2040</td><td>$4.00</td><td>22%</td><td>$85M</td><td>Only high-performance holdouts remain on 100LL.</td></tr>
+                <tr><td>2050</td><td>$6.00</td><td>&lt;1%</td><td>Minimal</td><td>100LL effectively phased out, niche use only.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="rev-total">Cumulative revenue: ~$523M</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="methodology">
+      <div class="content">
+        <h2>Methodology</h2>
+        <p>
+          We used flights data from <a href="https://www.transtats.bts.gov/Fields.asp?gnoyr_VQ=FIM">BTS T-100 Domestic Segment (U.S. Carriers)</a>
+          data from August 2022. We considered only non-empty Passenger flights (Service Class F)
+          in the contiguous United States, carried out by the biggest US air carriers (as defined
+          by BTS as "Certified U.S. air carriers that account for at least one percent of domestic
+          scheduled passenger revenues"). Airport data is from <a href="https://ourairports.com/data/">OurAirports</a>. We only considered
+          medium-size and large airports with scheduled service.
+        </p>
+        <p>
+          Spoke distances were calculated using airport distance and do not take into account actual flight paths.
+          We considered spokes "replaceable with one additional layover" at a range R if there is at least one
+          intermediate airport that can reach the spoke's origin and destination within the range R.
+        </p>
+        <p>
+          Emissions were approximated at 144.2g CO₂ per-seat-per-mile based on the
+          <a href="https://www.iba.aero/news/aviation-emissions-rise-slightly-iba-data-shows/">IBA Aviation Carbon Emissions Index</a>.
+          We calculated emissions based on passenger count and spoke distance. This does not take into account
+          actual flight paths, empty seats, aircraft or engine types, or secondary effects like contrails.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <p><a href="/">&larr; Back to Green Flight Plan</a></p>
+  </footer>
+</body>
+</html>

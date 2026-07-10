@@ -1,4 +1,4 @@
-import allSpokes from '/src/data/spokes.json';
+import allSpokes from '../data/spokes.json';
 import { sumFlights, sumPassengers, sumCO } from './utils.js';
 import { writable, derived } from "svelte/store"
 

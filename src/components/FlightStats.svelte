@@ -1,5 +1,5 @@
 <script>
-	import { formatNumber } from "../lib/utils";
+	import { formatNumber } from '../lib/utils.js';
 
 	let { label, color, passengers, flights } = $props();
 </script>
